@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1d3b2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            font-size: 24px;
+            color: #46211a;
+            margin-bottom: 20px;
+        }
+
+        .car-frame {
+            background-color: #ffffff;
+            border: 2px solid #46211a;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 350px;
+            height: 520px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            display: inline-block;
+            overflow: hidden;
+            position: relative; /* Add position relative */
+        }
+
+        .car-frame h2 {
+            margin-top: 0;
+        }
+
+        .car-frame img {
+            width: 90%;
+            height: 40%;
+            border-radius: 5px;
+            margin-top: 20px; /* Adjust the margin to create space between category and image */
+        }
+
+    .order-button {
+        position: absolute; /* Set position to absolute */
+        bottom: 10px; /* Adjust the distance from the bottom */
+        right: 10px; /* Adjust the distance from the right */
+        background-color: #46211A;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .order-button:hover {
+        background-color: #A43820;
+    }
+    </style>
+</head>
+<body>
+    <header>Car Details</header>
+    <div id="cars"></div>
+
+    <script>
+        function fetchAndRenderCars() {
+            fetch('/car_details')
+                .then(response => response.json())
+                .then(data => {
+                    const cardetails = document.getElementById('cars');
+                    cardetails.innerHTML = ''; // Clear existing car details
+                    data.forEach(car => {
+                        const frame = document.createElement('div');
+                        frame.classList.add('car-frame');
+                        frame.innerHTML = `
+                            <h2>${car.model}</h2>
+                            <img src="${car.imagepath}" alt="Car Image">
+                            <p><strong>ID:</strong> ${car.vehicle_id}</p>
+                            <p><strong>Category:</strong> ${car.category_type}</p>
+                            <p><strong>No. of Seats:</strong> ${car.no_of_seats}</p>
+                            <p><strong>No. of Cars:</strong> ${car.no_of_cars}</p>
+                            <p><strong>Price:</strong> ${car.price}</p>
+                            <a href="/order_dates/${car.vehicle_id}"><button class="order-button">Order</button></a>
+                        `;
+                        cardetails.appendChild(frame);
+                    });
+                })
+                .catch(error => console.error('Error fetching car details:', error));
+        }
+    
+        // Fetch and render cars initially when the page loads
+        fetchAndRenderCars();
+    
+        // Insert operation
+        function insertCar() {
+            // Redirect to the page for inserting a new car
+            window.location.href = '/insert_car';
+        }
+    
+        // Update operation (if needed)
+        function updateCar(vehicleId) {
+            // Redirect to the update page with the specific vehicle ID
+            window.location.href = `/update_car/${vehicleId}`;
+        }
+    
+        // Delete operation (if needed)
+        function deleteCar(vehicleId) {
+            // Send a DELETE request to the server
+            fetch(`/delete_car/${vehicleId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // If the DELETE request is successful, refresh car details
+                        fetchAndRenderCars();
+                    } else {
+                        console.error('Failed to delete car');
+                    }
+                })
+                .catch(error => console.error('Error deleting car:', error));
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Car</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1d3b2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #46211a;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            border: 2px solid #46211a;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            width: 350px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #46211a;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #46211A;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5e3120;
+        }
+    </style>
+</head>
+<body>
+    <h1>Insert Car Details</h1>
+    <form action="/add_car" method="POST">
+        <label for="vehicle_id">Vehicle ID:</label>
+        <input type="text" id="vehicle_id" name="vehicle_id" required><br><br>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" required><br><br>
+
+        <label for="category_type">Category:</label>
+        <input type="text" id="category_type" name="category_type" required><br><br>
+
+        <label for="no_of_seats">No. of Seats:</label>
+        <input type="number" id="no_of_seats" name="no_of_seats" required><br><br>
+
+        <label for="no_of_cars">No. of Cars:</label>
+        <input type="number" id="no_of_cars" name="no_of_cars" required><br><br>
+
+        <label for="imagepath">Image Path:</label>
+        <input type="text" id="imagepath" name="imagepath" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

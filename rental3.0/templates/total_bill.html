@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Bill</title>
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Total Bill</h1>
+    <p>The total bill for your rental is: {{ total_bill }}</p>
+
+    <!-- Add a button to proceed to checkout -->
+    <button onclick="proceedToCheckout()">Proceed to Checkout</button>
+
+    <script>
+        // Function to handle the button click and redirect to final.html
+        function proceedToCheckout() {
+            window.location.href = 'final.html';
+        }
+    </script>
+</body>
+</html>

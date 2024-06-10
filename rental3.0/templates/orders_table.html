@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F1D3B2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #46211A;
+        }
+
+        p {
+            color: #46211A;
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #A43820;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #46211A;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Summary</h1>
+        {% if last_order %}
+            <p>Order ID: {{ last_order[0] }}</p>
+            <p>License ID: {{ last_order[1] }}</p>
+            <p>Vehicle ID: {{ last_order[2] }}</p>
+            <p>Start Date: {{ last_order[3] }}</p>
+            <p>End Date: {{ last_order[4] }}</p>
+            <p>Total Bill: {{ last_order[5] }}</p>
+            
+            <form id="checkoutForm">
+                <button type="button" onclick="redirectToCheckout()">Checkout</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <script>
+        function redirectToCheckout() {
+            window.location.href = "/checkout";
+        }
+    </script>
+</body>
+</html>

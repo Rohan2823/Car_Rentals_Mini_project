@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Car Details</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f1d3b2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            font-size: 24px;
+            color: #46211a;
+            margin-bottom: 20px;
+        }
+
+        .car-frame {
+            background-color: #ffffff;
+            border: 2px solid #46211a;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 350px;
+            height: 520px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .car-frame h2 {
+            margin-top: 0;
+        }
+
+        .car-frame img {
+            width: 90%;
+            height: 40%;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .admin-buttons {
+            margin-bottom: 20px;
+        }
+
+        .admin-buttons button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #46211A;
+            color: #fff;
+        }
+
+        .admin-buttons button:hover {
+            background-color: #5e3120; /* Darken the color on hover */
+        }
+
+        .delete-button,
+        .update-button {
+            padding: 8px 16px; /* Adjust padding */
+            margin-right: 5px; /* Add some space between buttons */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #c23e3e; /* Red color for delete button */
+            color: #fff;
+        }
+
+        .delete-button:hover,
+        .update-button:hover {
+            background-color: #ff5d5d; /* Darken the color on hover */
+        }
+
+        .update-button {
+            background-color: #3ea7c2; /* Blue color for update button */
+        }
+
+        .update-button:hover {
+            background-color: #5dc2df; /* Darken the color on hover */
+        }
+
+        .order-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #46211A;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-button:hover {
+            background-color: #A43820;
+        }
+    </style>
+</head>
+<body>
+    <header>Admin Car Details
+    </header>
+    <div class="admin-buttons">
+        <button onclick="insertCar()">Insert Car</button>
+        <button onclick="searchCars()">Search Cars</button>
+        <a href="/"><button>Home</button></a>
+    </div>
+    <div id="cars"></div>
+
+    <script>
+
+          function insertCar() {
+            fetchAndRenderCars()
+            // Redirect to the page for inserting a new car
+            window.location.href = '/insert_car';
+            
+        }
+
+        function searchCars() {
+        const searchTerm = prompt('Enter the car name to search:');
+        if (searchTerm !== null) { // Check if user clicked cancel on the prompt
+            if (searchTerm.trim() !== '') {
+                const filteredCars = carsData.filter(car => car.model.toLowerCase().includes(searchTerm.toLowerCase()));
+                renderCars(filteredCars); // Render only the filtered cars
+            } else {
+                fetchAndRenderCars(); // If input field is empty, fetch and render all cars
+            }
+            }
+        }
+
+
+        function deleteCar(vehicleId) {
+    // Send a DELETE request to the server
+    fetch(`/delete_car/${vehicleId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            // If the DELETE request is successful, remove the car frame from the DOM
+            const carFrame = document.getElementById(`car-${vehicleId}`);
+            if (carFrame) {
+                carFrame.remove();
+                fetchAndRenderCars();
+            } else {
+                console.error('Car frame not found');
+            }
+        } else {
+            console.error('Failed to delete car');
+        }
+    })
+    .catch(error => console.error('Error deleting car:', error));
+}
+ 
+function updateCar(vehicleId) {
+            fetchAndRenderCars();
+            // Redirect to the update page with the specific vehicle ID
+            window.location.href = `/update_car/${vehicleId}`;
+            
+        }
+
+
+        function fetchAndRenderCars() {
+            fetch('/car_details')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                renderCars(data);
+            })
+            .catch(error => console.error('Error fetching car details:', error));
+}
+
+function renderCars(cars) {
+    carsData = cars; // Update global variable with fetched data
+    const cardetails = document.getElementById('cars');
+    cardetails.innerHTML = ''; // Clear existing car details
+    cars.forEach(car => {
+        const frame = createCarFrame(car);
+        cardetails.appendChild(frame);
+    });
+}
+
+function createCarFrame(car) {
+    const frame = document.createElement('div');
+    frame.classList.add('car-frame');
+    frame.innerHTML = `
+        <h2>${car.model}</h2>
+        <img src="${car.imagepath}" alt="Car Image">
+        <p><strong>ID:</strong> ${car.vehicle_id}</p>
+        <p><strong>Category:</strong> ${car.category_type}</p>
+        <p><strong>No. of Seats:</strong> ${car.no_of_seats}</p>
+        <p><strong>No. of Cars:</strong> ${car.no_of_cars}</p>
+        <p><strong>Price:</strong> ${car.price}</p>
+        <button class="delete-button" onclick="deleteCar(${car.vehicle_id})">Delete</button>
+        <button class="update-button" onclick="updateCar(${car.vehicle_id})">Update</button>
+    `;
+    return frame;
+}
+
+
+fetchAndRenderCars();
+
+      
+        
+
+</script>
+</body>
+</html>

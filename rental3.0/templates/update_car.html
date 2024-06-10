@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Car Details</title>
+    <!-- Your CSS styles here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1d3b2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            font-size: 24px;
+            color: #46211a;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            border: 2px solid #46211a;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            width: 350px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #46211a;
+        }
+
+        input {
+            width: calc(100% - 12px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #46211a;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5e3120; /* Darken the color on hover */
+        }
+    </style>
+
+</head>
+<body>
+    <header>Update Car Details</header>
+    <form action="/update_car/{{ car.vehicle_id }}" method="POST">
+        <!-- Update form fields based on your requirements -->
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" value="{{ car.model }}" required><br>
+        <label for="category_type">Category:</label>
+        <input type="text" id="category_type" name="category_type" value="{{ car.category_type }}" required><br>
+        <label for="no_of_seats">No. of Seats:</label>
+        <input type="number" id="no_of_seats" name="no_of_seats" value="{{ car.no_of_seats }}" required><br>
+        <label for="no_of_cars">No. of Cars:</label>
+        <input type="number" id="no_of_cars" name="no_of_cars" value="{{ car.no_of_cars }}" required><br>
+        <label for="imagepath">Image Path:</label>
+        <input type="text" id="imagepath" name="imagepath" value="{{ car.imagepath }}" required><br>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="{{ car.price }}" required><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

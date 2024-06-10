@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('static/css/images/pexels-vission-i-19248437.jpg'); /* Adjusted path */
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(247, 218, 172, 0.463); /* Added transparency */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #5f3100; /* dark beige */
+            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Button styles */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px; /* Reduced button padding */
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; /* Reduced font size */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            margin: 0 10px; /* Add margin between buttons */
+        }
+
+        .btn-primary {
+            background-color: #46211A; /* Dark red */
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #A43820; /* Red */
+        }
+
+        .btn-secondary {
+            background-color: #A43820; /* Red */
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #F1D3B2; /* Light beige */
+        }
+
+        /* Icon styles */
+        .fa {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to Car Rentals</h2>
+        <div class="btn-container">
+            <!-- Add this button for admin login -->
+            <a href="/admin" class="btn btn-secondary"><i class="fas fa-user-tie"></i> ADMIN LOGIN</a>
+            <a href="/login" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> LOGIN</a>
+            <a href="/signup" class="btn btn-secondary"><i class="fas fa-user-plus"></i> SIGN UP</a>
+        </div>
+    </div>
+</body>
+</html>
